@@ -18,8 +18,8 @@ $('#content').focus().textcomplete([{
     });
 
     if (term.length >= 3) {
-      results.sort(function(a,b) { return (a.length > b.length); });
-      results2.sort(function(a,b) { return (a.length > b.length); });
+      results.sort(function(a,b) { return (a.length > b.length) ? 1 : -1; });
+      results2.sort(function(a,b) { return (a.length > b.length) ? 1 : -1; });
       results3.sort();
     }
     var newResults = results.concat(results2).concat(results3);
