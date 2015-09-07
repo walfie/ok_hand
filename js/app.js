@@ -17,9 +17,16 @@ $('#content').focus().textcomplete([{
       }
     });
 
-    if (term.length >= 3) {
-      results.sort(function(a,b) { return (a.length > b.length) ? 1 : -1; });
-      results2.sort(function(a,b) { return (a.length > b.length) ? 1 : -1; });
+    if (term.length >= 2) {
+      var comparator = function(a, b) {
+        // Sort by how early the term exists in the shortname.
+        // If the same, return the shorter shortname.
+        var index = a.indexOf(term) - b.indexOf(term);
+        return index || (a.length - b.length);
+      }
+
+      results.sort(comparator);
+      results2.sort(comparator);
       results3.sort();
     }
     var newResults = results.concat(results2).concat(results3);
