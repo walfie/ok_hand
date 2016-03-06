@@ -29,26 +29,8 @@ $('#content').focus().textcomplete([{
     callback(newResults);
   },
   template: function (shortname) {
-    // I have no idea how this works. Taken from:
-    // https://github.com/twitter/twemoji/blob/gh-pages/twemoji-generator.js
-    function toCodePoint(unicodeSurrogates, sep) {
-      var r = [], c = 0, p = 0, i = 0;
-      while (i < unicodeSurrogates.length) {
-        c = unicodeSurrogates.charCodeAt(i++);
-        if (p) {
-          r.push((0x10000 + ((p - 0xD800) << 10) + (c - 0xDC00)).toString(16));
-          p = 0;
-        } else if (0xD800 <= c && c <= 0xDBFF) {
-          p = c;
-        } else {
-          r.push(c.toString(16));
-        }
-      }
-      return r.join(sep || '-').replace('-fe0f',''); // WHAT IS GOING ON
-    }
-
-    var unicode = toCodePoint(emojis[shortname].char);
-    return '<img class="emojione" src="https://twemoji.maxcdn.com/16x16/'+unicode+'.png"> :'+shortname+':';
+    var imgTag = twemoji.parse(emojis[shortname].char);
+    return imgTag + ' :' + shortname + ':';
   },
   replace: function (shortname) {
     return emojis[shortname].char;
